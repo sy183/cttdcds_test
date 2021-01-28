@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.suy.mapper.UserMapper">
+    <select id="getUsers" resultType="user">
+        select * from address_book
+    </select>
+
+    <select id="getUserById" parameterType="int" resultType="user">
+        select * from address_book where id = #{id}
+    </select>
+
+    <select id="getUserByName" parameterType="string" resultType="user">
+        select * from address_book where name = #{name}
+    </select>
+
+    <insert id="insertUser" parameterType="user">
+        insert into address_book(name, number, server) values (#{name}, #{number}, #{server})
+    </insert>
+
+    <delete id="deleteUserById" parameterType="int">
+        delete from address_book where id = #{id}
+    </delete>
+
+    <update id="updateUser" parameterType="user">
+        update address_book
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="number != null">number = #{number},</if>
+            <if test="server != null">server = #{server},</if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>
